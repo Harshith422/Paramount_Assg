@@ -1,60 +1,88 @@
-# Multi-Agent Task Orchestration System
+# Multi-Agent Orchestration System
 
-## Overview
-This project implements a lightweight platform where multiple AI agents collaborate to complete complex tasks, such as researching and generating reports. Features real-time WebSocket updates, parallel agent execution, and comprehensive error handling.
+A research pipeline built around four specialised agents - Planner, Researcher, Writer, and Reviewer - coordinated by a central `Pipeline` class that manages state, handles the revision loop, and streams live updates to the browser over WebSocket.
 
-## Architecture
-- **Backend**: FastAPI service with agent abstractions, orchestrator, WebSocket real-time updates, and parallel processing
-- **Frontend**: React app with real-time progress visualization and interactive UI
+---
+## Live Demo Walkthrough
 
-## Key Features
-- ✅ **Real-time Updates**: WebSocket connections for live progress tracking
-- ✅ **Parallel Processing**: Multiple researchers work simultaneously
-- ✅ **Error Handling**: Robust failure recovery and status tracking
-- ✅ **Interactive UI**: Modern React interface with progress indicators
-- ✅ **Agent Pipeline**: Planner → Researchers (parallel) → Writer → Reviewer
+Watch a **3–5 minute screen recording** of the system in action:
 
-## Setup
-1. **Backend**:
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   uvicorn main:app --reload
-   ```
+**Demo Video:** [Click here to watch](https://drive.google.com/file/d/1vF-pR8YVSrjF5wygnB_oOMJ-XDkaWAKl/view?usp=sharing)
 
-2. **Frontend**:
-   ```bash
-   npm install
-   npm run dev
-   ```
+## Running it
 
-## Usage
-- **Backend**: `http://localhost:8000`
-- **Frontend**: `http://localhost:5173`
-- **API Docs**: `http://localhost:8000/docs`
+**Prerequisites:** Python 3.11+, Node.js 18+
 
-Submit a task, watch agents collaborate in real-time, and view the final report.
+**Backend:**
+```bash
+cd backend
+pip install -r requirements.txt
+python main.py
+```
+Starts at `http://localhost:8001`. Swagger docs at `/docs`. Task data is written to `backend/data/` and survives restarts.
 
-## API Endpoints
-- `POST /tasks` - Submit task
-- `GET /tasks/{id}` - Get status
-- `POST /tasks/{id}/process` - Process task
-- `WebSocket /ws/tasks/{id}` - Real-time updates
+**Frontend:**
+```bash
+npm install
+npm run dev
+```
+Starts at `http://localhost:5173`. Vite proxies `/api/*` to the backend REST API and `/ws/*` to the WebSocket endpoint.
 
-## Architecture Decisions
-- **WebSocket over Polling**: Provides instant updates without constant requests
-- **Parallel Research**: Researchers execute concurrently for efficiency
-- **Async Agents**: All agents are async for non-blocking execution
-- **State Broadcasting**: Real-time state sync between backend and frontend
+---
 
-## Trade-offs
-- **WebSocket vs SSE**: WebSocket chosen for bidirectional communication
-- **Parallel vs Sequential**: Parallel research improves performance but increases complexity
-- **In-memory State**: Simple but not persistent (could add database for production)
+## How the pipeline works
 
-## Future Improvements
-- Database persistence for task history
-- User authentication and multi-user support
-- Configurable agent pipelines
-- Advanced error recovery strategies
-- Performance monitoring and metrics
+1. **POST /tasks** - client sends a description, gets back a `task_id` (short UUID)
+2. **WebSocket /ws/tasks/{id}** - client connects and receives the full task snapshot on every phase transition
+3. **Planner** decomposes the request into 4 focused sub-tasks using topic-specific templates
+4. **Researcher** fans out with `asyncio.gather` - all sub-tasks are researched concurrently from a curated knowledge bank
+5. **Writer** synthesises findings into a structured report (title, overview, per-finding sections, conclusion)
+6. **Reviewer** approves or rejects. If rejected, the Writer revises with the feedback, then the Reviewer re-reviews (bounded to one retry)
+
+---
+
+## Project structure
+
+```
+backend/
+  main.py            # FastAPI app, all four agents, Pipeline orchestrator
+  data/              # JSON files persisted per task (created at runtime)
+  requirements.txt   # Python dependencies
+src/
+  App.tsx            # React UI - stepper, activity log, report display
+  index.css          # Tailwind directives and global font
+  main.tsx           # React entry point
+vite.config.ts       # Dev proxy: /api→:8001, /ws→:8001
+design_document.md   # Architecture decisions and trade-offs
+```
+
+---
+
+## API reference
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| `POST` | `/tasks` | Submit a task (returns `task_id`, 202 Accepted) |
+| `GET` | `/tasks/{id}` | Retrieve a single task by ID |
+| `GET` | `/tasks` | List all saved tasks (reads from disk) |
+| `WS` | `/ws/tasks/{id}` | Real-time task snapshot stream |
+
+**POST body:** `{ "description": "your research question" }`
+
+---
+
+## Key design decisions
+
+- **Pipeline as a plain class** - explicit `async def run()` rather than a framework chain. Easy to read, easy to debug.
+- **Push state before work** - WebSocket push happens at the *start* of each phase so the UI feels instant.
+- **Typed contract** - every agent returns `AgentResult(BaseModel)`. Adding a 5th agent requires zero changes to the orchestrator.
+- **Short UUIDs** - `uuid4()[:8]` avoids sequential ID enumeration while staying copy-paste friendly.
+- **Concurrent research** - `asyncio.gather` runs all sub-tasks in parallel. Total time equals the slowest lookup, not the sum.
+
+---
+
+## Development notes
+
+- The Vite proxy rewrites `/api/tasks` → `/tasks` on the backend. The `/api` prefix only exists in development.
+- Task data is persisted to `backend/data/{task_id}.json` on every state transition. Delete this folder to start fresh.
+- No authentication - this is a single-user assignment demo.

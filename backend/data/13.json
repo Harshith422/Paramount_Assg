@@ -1,0 +1,132 @@
+{
+  "id": "13",
+  "description": "Compare microservices and monolithic architecture - when does each approach actually make sense?",
+  "phase": "done",
+  "active_agent": null,
+  "sub_tasks": [
+    {
+      "id": 1,
+      "description": "Examine where microservices genuinely improve scalability and where the gains are overstated."
+    },
+    {
+      "id": 2,
+      "description": "Identify the hidden operational costs teams consistently underestimate with microservices."
+    },
+    {
+      "id": 3,
+      "description": "Outline what a well-structured monolith does well that is easy to overlook in migration enthusiasm."
+    },
+    {
+      "id": 4,
+      "description": "Map the decision signals - team size, deployment cadence, observability maturity - that should guide the choice."
+    }
+  ],
+  "findings": [
+    {
+      "sub_task_id": 1,
+      "sub_task": "Examine where microservices genuinely improve scalability and where the gains are overstated.",
+      "finding": "Optimising for the problem you don't have yet is the most common architecture mistake. The right choice fits today's scale and team, with clear migration paths when that changes."
+    },
+    {
+      "sub_task_id": 2,
+      "sub_task": "Identify the hidden operational costs teams consistently underestimate with microservices.",
+      "finding": "A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing."
+    },
+    {
+      "sub_task_id": 3,
+      "sub_task": "Outline what a well-structured monolith does well that is easy to overlook in migration enthusiasm.",
+      "finding": "AI-assisted code generation lowers the cost of service boilerplate, shifting the cost-benefit calculation \u2014 standing up a new service is cheaper in 2025 than it was in 2019."
+    },
+    {
+      "sub_task_id": 4,
+      "sub_task": "Map the decision signals - team size, deployment cadence, observability maturity - that should guide the choice.",
+      "finding": "A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing."
+    }
+  ],
+  "initial_report": "ANALYSIS REPORT\n==============================================================\nTopic:      Compare microservices and monolithic architecture - when does each approach actually make sense?\nPrepared:   21 February 2026\nDraft:      Initial\n==============================================================\n\nOVERVIEW\n----------------------------------------\nThis report examines: Compare microservices and monolithic architecture - when does each approach actually make sense?\n\nThe analysis draws on 4 research angles, each focused on a different dimension of the problem. The goal is not a single verdict but a clear picture of the considerations that should inform a decision \u2014 because the right answer is always context-dependent.\n\nFINDINGS\n----------------------------------------\n\n[1] Examine where microservices genuinely improve scalability and where the gains are overstated.\n    Optimising for the problem you don't have yet is the most common architecture mistake. The right choice fits today's scale and team, with clear migration paths when that changes.\n\n[2] Identify the hidden operational costs teams consistently underestimate with microservices.\n    A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing.\n\n[3] Outline what a well-structured monolith does well that is easy to overlook in migration enthusiasm.\n    AI-assisted code generation lowers the cost of service boilerplate, shifting the cost-benefit calculation \u2014 standing up a new service is cheaper in 2025 than it was in 2019.\n\n[4] Map the decision signals - team size, deployment cadence, observability maturity - that should guide the choice.\n    A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing.\n\nCONCLUSION\n----------------------------------------\nNo single architecture, tool, or approach is universally correct. What the findings above show consistently is that the best choice is the one aligned with current constraints-not the one that looks best on a whiteboard.\n\nBefore committing, ask: do we have the team, tooling, and operational maturity to support this? If that answer is uncertain, the safer path is usually the simpler one, with a deliberate plan for when to evolve it.",
+  "revised_report": "",
+  "reviewer_feedback": "Good work \u2014 each finding ties back to the central question and the conclusion doesn't overstate what the data supports.",
+  "approved": true,
+  "activity_log": [
+    {
+      "agent": "Planner",
+      "phase": "planning",
+      "success": true,
+      "data": {
+        "sub_tasks": [
+          {
+            "id": 1,
+            "description": "Examine where microservices genuinely improve scalability and where the gains are overstated."
+          },
+          {
+            "id": 2,
+            "description": "Identify the hidden operational costs teams consistently underestimate with microservices."
+          },
+          {
+            "id": 3,
+            "description": "Outline what a well-structured monolith does well that is easy to overlook in migration enthusiasm."
+          },
+          {
+            "id": 4,
+            "description": "Map the decision signals - team size, deployment cadence, observability maturity - that should guide the choice."
+          }
+        ]
+      },
+      "logged_at": "2026-02-21T01:14:51.925906"
+    },
+    {
+      "agent": "Researcher",
+      "phase": "researching",
+      "success": true,
+      "data": {
+        "findings": [
+          {
+            "sub_task_id": 1,
+            "sub_task": "Examine where microservices genuinely improve scalability and where the gains are overstated.",
+            "finding": "Optimising for the problem you don't have yet is the most common architecture mistake. The right choice fits today's scale and team, with clear migration paths when that changes."
+          },
+          {
+            "sub_task_id": 2,
+            "sub_task": "Identify the hidden operational costs teams consistently underestimate with microservices.",
+            "finding": "A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing."
+          },
+          {
+            "sub_task_id": 3,
+            "sub_task": "Outline what a well-structured monolith does well that is easy to overlook in migration enthusiasm.",
+            "finding": "AI-assisted code generation lowers the cost of service boilerplate, shifting the cost-benefit calculation \u2014 standing up a new service is cheaper in 2025 than it was in 2019."
+          },
+          {
+            "sub_task_id": 4,
+            "sub_task": "Map the decision signals - team size, deployment cadence, observability maturity - that should guide the choice.",
+            "finding": "A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing."
+          }
+        ],
+        "errors": []
+      },
+      "logged_at": "2026-02-21T01:14:53.158404"
+    },
+    {
+      "agent": "Writer",
+      "phase": "drafting",
+      "success": true,
+      "data": {
+        "report": "ANALYSIS REPORT\n==============================================================\nTopic:      Compare microservices and monolithic architecture - when does each approach actually make sense?\nPrepared:   21 February 2026\nDraft:      Initial\n==============================================================\n\nOVERVIEW\n----------------------------------------\nThis report examines: Compare microservices and monolithic architecture - when does each approach actually make sense?\n\nThe analysis draws on 4 research angles, each focused on a different dimension of the problem. The goal is not a single verdict but a clear picture of the considerations that should inform a decision \u2014 because the right answer is always context-dependent.\n\nFINDINGS\n----------------------------------------\n\n[1] Examine where microservices genuinely improve scalability and where the gains are overstated.\n    Optimising for the problem you don't have yet is the most common architecture mistake. The right choice fits today's scale and team, with clear migration paths when that changes.\n\n[2] Identify the hidden operational costs teams consistently underestimate with microservices.\n    A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing.\n\n[3] Outline what a well-structured monolith does well that is easy to overlook in migration enthusiasm.\n    AI-assisted code generation lowers the cost of service boilerplate, shifting the cost-benefit calculation \u2014 standing up a new service is cheaper in 2025 than it was in 2019.\n\n[4] Map the decision signals - team size, deployment cadence, observability maturity - that should guide the choice.\n    A monolith has one deployment artifact and one rollback. Coordinating a rolling deploy across twelve services with interdependent schema migrations requires explicit sequencing.\n\nCONCLUSION\n----------------------------------------\nNo single architecture, tool, or approach is universally correct. What the findings above show consistently is that the best choice is the one aligned with current constraints-not the one that looks best on a whiteboard.\n\nBefore committing, ask: do we have the team, tooling, and operational maturity to support this? If that answer is uncertain, the safer path is usually the simpler one, with a deliberate plan for when to evolve it.",
+        "is_revision": false
+      },
+      "logged_at": "2026-02-21T01:14:54.069826"
+    },
+    {
+      "agent": "Reviewer",
+      "phase": "reviewing",
+      "success": true,
+      "data": {
+        "approved": true,
+        "feedback": "Good work \u2014 each finding ties back to the central question and the conclusion doesn't overstate what the data supports.",
+        "word_count": 322,
+        "is_revision": false
+      },
+      "logged_at": "2026-02-21T01:14:54.568870"
+    }
+  ],
+  "queued_at": "2026-02-21T01:14:51.314665"
+}
